@@ -1,8 +1,10 @@
 import speech_recognition as sr
 import pyttsx3
-from openai_key import OPENAI_KEY
 import openai
-openai.api_key = OPENAI_KEY
+import os
+from dotenv import load_dotenv
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -15,7 +17,7 @@ def talk(text):
     engine.runAndWait()
 def response(text):
     response = openai.Completion.create(
-        engine="text-davinci-002",
+        engine="text-davinci-003",
         prompt=text,
         max_tokens=100,
         # temparature=0,
